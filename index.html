@@ -988,6 +988,185 @@
     to { transform: scale(6); opacity: 0; }
   }
 
+  /* ===== PAYMENT PAGE ===== */
+  .payment-intro {
+    text-align: center;
+    max-width: 660px;
+    margin: 0 auto 60px;
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(214,240,255,0.75);
+  }
+
+  .payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 28px;
+    margin-bottom: 50px;
+    align-items: start;
+  }
+
+  .payment-card {
+    background: rgba(10,31,61,0.75);
+    border: 1px solid rgba(0,212,255,0.15);
+    border-radius: 16px;
+    padding: 36px 30px 30px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    transition: all 0.35s ease;
+  }
+  .payment-card:hover {
+    border-color: rgba(0,212,255,0.45);
+    transform: translateY(-5px);
+    box-shadow: 0 30px 80px rgba(0,100,200,0.25);
+  }
+  .payment-card.featured {
+    border-color: rgba(0,212,255,0.5);
+    background: rgba(13,43,84,0.88);
+    box-shadow: 0 0 50px rgba(0,100,200,0.18);
+  }
+  .payment-card.featured::after {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: 20px; right: -30px;
+    background: var(--accent);
+    color: #000;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 5px 44px;
+    transform: rotate(35deg);
+  }
+  .payment-card h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--light3);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .payment-base-price {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .payment-base-price span {
+    font-size: 1rem;
+    color: rgba(214,240,255,0.45);
+    font-weight: 400;
+  }
+  .payment-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,212,255,0.3), transparent);
+    margin: 18px 0;
+  }
+  .payment-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 20px;
+  }
+  .payment-card ul li {
+    font-size: 0.88rem;
+    color: rgba(214,240,255,0.8);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .payment-card ul li::before {
+    content: '✦';
+    color: var(--accent);
+    font-size: 0.62rem;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .final-price-box {
+    background: rgba(0,212,255,0.07);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .final-price-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: rgba(214,240,255,0.5);
+    text-transform: uppercase;
+  }
+  .final-price-label small {
+    display: block;
+    font-size: 0.58rem;
+    color: rgba(214,240,255,0.35);
+    margin-top: 2px;
+    letter-spacing: 1px;
+  }
+  .final-price-value {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    text-shadow: 0 0 16px rgba(0,212,255,0.4);
+  }
+  .final-price-value span {
+    font-size: 0.75rem;
+    color: rgba(214,240,255,0.45);
+    font-weight: 400;
+  }
+  .buy-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 15px 24px;
+    background: linear-gradient(135deg, var(--light1), var(--accent));
+    color: #000;
+    border-radius: 8px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 24px rgba(0,212,255,0.25);
+  }
+  .buy-btn:hover {
+    box-shadow: 0 0 48px rgba(0,212,255,0.6);
+    transform: translateY(-2px) scale(1.02);
+    background: linear-gradient(135deg, var(--accent), var(--light2));
+  }
+  .buy-btn:active { transform: scale(0.97); }
+  .buy-btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: scale(0);
+    animation: btnRipple 0.5s linear;
+    pointer-events: none;
+  }
+  .payment-note {
+    text-align: center;
+    font-size: 0.78rem;
+    color: rgba(214,240,255,0.38);
+    font-style: italic;
+    border-top: 1px solid rgba(0,212,255,0.08);
+    padding-top: 20px;
+    margin-top: 10px;
+  }
+  .payment-note strong { color: rgba(214,240,255,0.55); }
+
   footer span { color: var(--accent); }
 </style>
 </head>
@@ -1012,9 +1191,10 @@
   <div class="nav-logo">DISCODEV</div>
   <ul class="nav-links">
     <li><a href="#" class="active" onclick="showPage('home',this)">Home</a></li>
-    <li><a href="#" onclick="showPage('about',this)">About Me</a></li>
+    <li><a href="#" onclick="showPage('about',this)">About the Developers</a></li>
     <li><a href="#" onclick="showPage('pricing',this)">Pricing</a></li>
     <li><a href="#" onclick="showPage('gallery',this)">Gallery</a></li>
+    <li><a href="#" onclick="showPage('payment',this)">Payment</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -1024,9 +1204,10 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="#" class="active" id="mob-home"    onclick="showPage('home',this);    closeMobileMenu();">Home</a>
-  <a href="#" id="mob-about"   onclick="showPage('about',this);   closeMobileMenu();">About Me</a>
+  <a href="#" id="mob-about"   onclick="showPage('about',this);   closeMobileMenu();">About the Developers</a>
   <a href="#" id="mob-pricing" onclick="showPage('pricing',this); closeMobileMenu();">Pricing</a>
   <a href="#" id="mob-gallery" onclick="showPage('gallery',this); closeMobileMenu();">Gallery</a>
+  <a href="#" id="mob-payment" onclick="showPage('payment',this); closeMobileMenu();">Payment</a>
 </div>
 
 <!-- ===== HOME PAGE ===== -->
@@ -1132,7 +1313,7 @@
       </div>
 
       <div class="about-content">
-        <h2>About Me</h2>
+        <h2>About the Developers</h2>
         <p>I'm a 22-year-old developer with a passion for building systems that actually work — efficiently, reliably, and at scale. I started scripting at just 11 years old, which gave me a strong foundation early on and years of hands-on experience before most people even begin.</p>
         <p>My journey into coding started with JavaScript, where I was mentored by my dad, who worked in the field. He taught me the fundamentals of programming, problem-solving, and how to think like a developer — skills that still shape the way I build today.</p>
         <p>Throughout high school, I continued developing my skills by taking multiple courses in engineering and computer science. That's where I expanded my knowledge, worked on real projects, and built a deeper understanding of how systems are designed and optimized.</p>
@@ -1164,7 +1345,7 @@
 
       <div class="price-card featured">
         <h3>Advanced Package</h3>
-        <span class="price-amount">725 <span>Robux</span></span>
+        <span class="price-amount">750 <span>Robux</span></span>
         <div class="price-divider"></div>
         <ul>
           <li>Everything in Starter</li>
@@ -1178,7 +1359,7 @@
 
       <div class="price-card">
         <h3>Premium Package</h3>
-        <span class="price-amount">1300 <span>Robux</span></span>
+        <span class="price-amount">1400 <span>Robux</span></span>
         <div class="price-divider"></div>
         <ul>
           <li>Everything above</li>
@@ -1461,6 +1642,92 @@ game.Players.PlayerRemoving:Connect(
   </div>
 </div>
 
+<!-- ===== PAYMENT PAGE ===== -->
+<div id="page-payment" class="page">
+  <div class="section">
+    <h2 class="section-title">Payment</h2>
+    <p class="payment-intro">Select the package that suits your needs and click the button to purchase directly through Roblox. All prices include tax — no hidden fees. Purchases are final.</p>
+
+    <div class="payment-grid">
+
+      <!-- STARTER -->
+      <div class="payment-card">
+        <h3>Starter Package</h3>
+        <div class="payment-base-price">400 <span>Robux (base)</span></div>
+        <div class="payment-divider"></div>
+        <ul>
+          <li>Ticket system</li>
+          <li>Basic moderation (warn, mute, ban)</li>
+          <li>Verify system</li>
+          <li>Basic setup</li>
+        </ul>
+        <div class="final-price-box">
+          <div class="final-price-label">
+            Final Price
+            <small>Tax + Cost Included</small>
+          </div>
+          <div class="final-price-value">520 <span>Robux</span></div>
+        </div>
+        <a href="https://www.roblox.com/game-pass/1748532510" target="_blank" class="buy-btn" onclick="addBuyRipple(event)">
+          Purchase on Roblox
+        </a>
+      </div>
+
+      <!-- ADVANCED -->
+      <div class="payment-card featured">
+        <h3>Advanced Package</h3>
+        <div class="payment-base-price">750 <span>Robux (base)</span></div>
+        <div class="payment-divider"></div>
+        <ul>
+          <li>Everything in Starter</li>
+          <li>Anti-raid system</li>
+          <li>Anti-nuke system</li>
+          <li>Level system</li>
+          <li>Invite tracker</li>
+          <li>Full setup + permissions</li>
+        </ul>
+        <div class="final-price-box">
+          <div class="final-price-label">
+            Final Price
+            <small>Tax + Cost Included</small>
+          </div>
+          <div class="final-price-value">975 <span>Robux</span></div>
+        </div>
+        <a href="https://www.roblox.com/game-pass/1739553561" target="_blank" class="buy-btn" onclick="addBuyRipple(event)">
+          Purchase on Roblox
+        </a>
+      </div>
+
+      <!-- PREMIUM -->
+      <div class="payment-card">
+        <h3>Premium Package</h3>
+        <div class="payment-base-price">1400 <span>Robux (base)</span></div>
+        <div class="payment-divider"></div>
+        <ul>
+          <li>Everything above</li>
+          <li>Custom commands</li>
+          <li>Full server setup (channels + roles)</li>
+          <li>UI polish (embeds, buttons, emojis)</li>
+          <li>Priority support on all bugs</li>
+        </ul>
+        <div class="final-price-box">
+          <div class="final-price-label">
+            Final Price
+            <small>Tax + Cost Included</small>
+          </div>
+          <div class="final-price-value">1820 <span>Robux</span></div>
+        </div>
+        <a href="https://www.roblox.com/game-pass/1737734804" target="_blank" class="buy-btn" onclick="addBuyRipple(event)">
+          Purchase on Roblox
+        </a>
+      </div>
+
+    </div>
+
+    <p class="payment-note"><strong>Disclaimer:</strong> All purchases are final. Tax is included in the final price shown. Clicking "Purchase on Roblox" will open the Roblox gamepass page where you can complete payment securely.</p>
+  </div>
+</div>
+
 <footer>
   <p>© 2025 <span>DiscoDev</span> Scripting Services — All rights reserved.</p>
 </footer>
@@ -1543,6 +1810,19 @@ function addRipple(e) {
   const size = Math.max(rect.width, rect.height);
   const ripple = document.createElement('span');
   ripple.className = 'btn-ripple';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+  ripple.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+  btn.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 520);
+}
+
+function addBuyRipple(e) {
+  const btn = e.currentTarget;
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const ripple = document.createElement('span');
+  ripple.className = 'buy-btn-ripple';
   ripple.style.width = ripple.style.height = size + 'px';
   ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
   ripple.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
