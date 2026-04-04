@@ -198,13 +198,31 @@
     border-radius: 4px;
     text-decoration: none;
     display: inline-block;
+    position: relative;
+    overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 0 30px rgba(0,212,255,0.3);
     cursor: none;
   }
   .cta-btn:hover {
-    box-shadow: 0 0 50px rgba(0,212,255,0.6);
-    transform: translateY(-2px);
+    box-shadow: 0 0 55px rgba(0,212,255,0.7);
+    transform: translateY(-3px) scale(1.03);
+    background: linear-gradient(135deg, var(--accent), var(--light2));
+  }
+  .cta-btn:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 0 20px rgba(0,212,255,0.4);
+  }
+  .btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.35);
+    transform: scale(0);
+    animation: btnRipple 0.5s linear;
+    pointer-events: none;
+  }
+  @keyframes btnRipple {
+    to { transform: scale(4); opacity: 0; }
   }
 
   /* ===== SECTION CONTAINERS ===== */
@@ -403,17 +421,16 @@
 
   /* ===== ABOUT PAGE ===== */
   .about-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 60px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
   }
-  @media(max-width:768px) { .about-wrapper { grid-template-columns: 1fr; } }
 
   .about-avatar {
-    position: sticky;
-    top: 100px;
+    position: static;
     text-align: center;
+    width: 100%;
   }
   .avatar-ring {
     width: 200px; height: 200px;
@@ -446,6 +463,12 @@
     letter-spacing: 1px;
   }
 
+  .about-content {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
   .about-content h2 {
     font-family: 'Orbitron', monospace;
     font-size: 1.8rem;
@@ -465,7 +488,8 @@
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 28px;
+    justify-content: center;
   }
   .stat-box {
     flex: 1;
@@ -675,12 +699,23 @@
     box-shadow: 0 24px 60px rgba(0,100,200,0.25);
   }
   .gallery-preview {
-    height: 180px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
+  }
+  .gallery-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .gallery-card:hover .gallery-preview img {
+    transform: scale(1.04);
   }
   .gallery-preview .code-preview {
     font-family: 'Courier New', monospace;
@@ -772,7 +807,7 @@
     <h1><span>DiscoDev</span><br>Scripting Services</h1>
     <p class="hero-sub">Build Smarter. Scale Faster.</p>
     <p class="hero-desc">With over 11 years of experience, DiscoDev delivers powerful, reliable, and fully customized scripting solutions tailored to your needs. Whether you're launching a community, managing a large-scale server, or developing advanced systems, you'll get clean, efficient code that performs.</p>
-    <a href="#" class="cta-btn" onclick="showPage('pricing', document.querySelectorAll('.nav-links a')[2])">View Pricing</a>
+    <a href="#" class="cta-btn" onclick="showPage('pricing', document.querySelectorAll('.nav-links a')[2]); addRipple(event);">View Pricing</a>
   </div>
 
   <div class="section-divider"></div>
@@ -852,7 +887,7 @@
   <div class="cta-banner">
     <h2>Let's Build Something Great</h2>
     <p>Whether you're starting from scratch or upgrading an existing system, DiscoDev is here to help bring your ideas to life.</p>
-    <a href="#" class="cta-btn" onclick="showPage('pricing', document.querySelectorAll('.nav-links a')[2])">Get Started</a>
+    <a href="https://discord.gg/G5CeyMWhPq" target="_blank" class="cta-btn" onclick="addRipple(event)">Get Started</a>
   </div>
 </div>
 
@@ -864,7 +899,7 @@
         <div class="avatar-ring">👨‍💻</div>
         <p class="about-name">DISCODEV</p>
         <p class="about-role">Full-Stack Script Developer</p>
-        <div class="stat-row" style="margin-top:28px;">
+        <div class="stat-row">
           <div class="stat-box"><span class="num">11+</span><span class="lbl">Years Exp.</span></div>
           <div class="stat-box"><span class="num">22</span><span class="lbl">Years Old</span></div>
         </div>
@@ -890,9 +925,8 @@
 
     <div class="pricing-grid">
       <div class="price-card">
-        <div class="price-badge">⚪</div>
         <h3>Starter Package</h3>
-        <span class="price-amount">300 <span>Robux</span></span>
+        <span class="price-amount">400 <span>Robux</span></span>
         <div class="price-divider"></div>
         <ul>
           <li>Ticket system</li>
@@ -903,9 +937,8 @@
       </div>
 
       <div class="price-card featured">
-        <div class="price-badge">🔵</div>
         <h3>Advanced Package</h3>
-        <span class="price-amount">650 <span>Robux</span></span>
+        <span class="price-amount">725 <span>Robux</span></span>
         <div class="price-divider"></div>
         <ul>
           <li>Everything in Starter</li>
@@ -918,9 +951,8 @@
       </div>
 
       <div class="price-card">
-        <div class="price-badge">🔴</div>
         <h3>Premium Package</h3>
-        <span class="price-amount">1200 <span>Robux</span></span>
+        <span class="price-amount">1300 <span>Robux</span></span>
         <div class="price-divider"></div>
         <ul>
           <li>Everything above</li>
@@ -965,108 +997,240 @@
     <p class="gallery-intro">A showcase of systems and bots built by DiscoDev. Each project is custom-built from scratch — no templates, no shortcuts.</p>
 
     <div class="gallery-grid">
+
+      <!-- Screenshot: Designer Application flow -->
       <div class="gallery-card">
-        <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0d2b54);">
-          <div class="code-preview">client.on("guildMemberAdd", async member => {
-  await member.roles.add(UNVERIFIED_ROLE);
-  // Anti-raid detection active
-  recentJoins.push(Date.now());
-  if (recentJoins.length >= RAID_THRESHOLD)
-    triggerLockdown(member.guild);
-});</div>
+        <div class="gallery-preview" style="background:#111;padding:0;">
+          <img src="Screen_Shot_2026-04-03_at_4_15_08_PM.png" alt="Designer Application" style="width:100%;height:100%;object-fit:cover;object-position:top;">
         </div>
         <div class="gallery-info">
-          <span class="gallery-tag">Discord Bot</span>
-          <h3>Anti-Raid Protection System</h3>
-          <p>Automatic lockdown, raid detection, and ban system with configurable thresholds and cooldowns.</p>
+          <span class="gallery-tag">Discord Bot · Live</span>
+          <h3>Designer Application System</h3>
+          <p>Full DM-based application flow — instructions, Q&amp;A collection, image submission, and staff review with approve/deny buttons.</p>
         </div>
       </div>
 
+      <!-- Screenshot: Questions embed -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:#111;padding:0;">
+          <img src="Screen_Shot_2026-04-03_at_4_16_22_PM.png" alt="Application Questions" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Discord Bot · Live</span>
+          <h3>Multi-Step Application Flow</h3>
+          <p>10-question guided DM interview with answer collection, state tracking, and clean embedded formatting throughout.</p>
+        </div>
+      </div>
+
+      <!-- Screenshot: Almost there + image prompt -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:#111;padding:0;">
+          <img src="Screen_Shot_2026-04-03_at_4_16_29_PM.png" alt="Portfolio submission" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Discord Bot · Live</span>
+          <h3>Portfolio Image Submission</h3>
+          <p>Prompts applicants to submit portfolio images after answering questions, with validation before forwarding.</p>
+        </div>
+      </div>
+
+      <!-- Screenshot: Staff review panel -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:#111;padding:0;">
+          <img src="Screen_Shot_2026-04-03_at_4_17_15_PM.png" alt="Staff Review Panel" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Discord Bot · Live</span>
+          <h3>Staff Review & Approval Panel</h3>
+          <p>Applications forwarded to a log channel with embedded answers, portfolio images, and interactive Approve / Deny buttons for staff.</p>
+        </div>
+      </div>
+
+      <!-- Screenshot: Approval DM -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:#111;padding:0;">
+          <img src="Screen_Shot_2026-04-03_at_4_17_30_PM.png" alt="Approval Message" style="width:100%;height:100%;object-fit:cover;object-position:center;">
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Discord Bot · Live</span>
+          <h3>Automated Approval DM</h3>
+          <p>On approval, the bot automatically DMs the applicant a personalised congratulations message and assigns the Designer role.</p>
+        </div>
+      </div>
+
+      <!-- Screenshot: Support ticket panel -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:#111;padding:0;">
+          <img src="Screen_Shot_2026-04-03_at_8_54_29_PM.png" alt="Support Panel" style="width:100%;height:100%;object-fit:cover;object-position:top;">
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Discord Bot · Live</span>
+          <h3>Support Dashboard Panel</h3>
+          <p>Full branded ticket panel with select-menu routing across General, IA, and Management support — with header images and rich embeds.</p>
+        </div>
+      </div>
+
+      <!-- Security: Anti-Raid -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0d2b54);">
+          <div class="code-preview">// 🚨 RAID DETECTED — AUTO LOCKDOWN
+recentJoins.push(Date.now());
+recentJoins = recentJoins.filter(
+  t => Date.now() - t &lt; RAID_TIME_WINDOW);
+
+if (recentJoins.length >= RAID_JOIN_THRESHOLD) {
+  raidMode = true;
+  // Delete all invites
+  invites.forEach(inv => inv.delete());
+  // Lock all channels
+  guild.channels.cache.forEach(ch =>
+    ch.permissionOverwrites.edit(
+      everyone, { SendMessages: false }));
+  // Ban raid members
+  recentMembers.forEach(m =>
+    m.ban({ reason: "Raid auto-ban" }));
+}</div>
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Security · Anti-Raid</span>
+          <h3>Anti-Raid Lockdown System</h3>
+          <p>Detects mass joins within a time window, wipes invites, locks all channels, and auto-bans raiders — then auto-unlocks after 10 minutes.</p>
+        </div>
+      </div>
+
+      <!-- Security: Anti-Nuke -->
       <div class="gallery-card">
         <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0a1f3d);">
-          <div class="code-preview">// Ticket System v2
+          <div class="code-preview">// 🛡️ ANTI-NUKE TRACKER
+function trackNukeAction(guild, userId, reason) {
+  const data = antiNukeTracker.get(userId);
+  data.count++;
+  // Triggers after 3 destructive actions
+  // within a 10-second window
+  if (data.count >= NUKER_THRESHOLD) {
+    member.ban({ reason: `Anti-Nuke: ${reason}` });
+    logChannel.send(
+      `🚨 Nuker banned: &lt;@${userId}&gt;`);
+    // Lock server immediately
+    guild.channels.cache.forEach(ch =>
+      ch.permissionOverwrites.edit(
+        everyone, { SendMessages: false }));
+  }
+}</div>
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Security · Anti-Nuke</span>
+          <h3>Anti-Nuke Protection</h3>
+          <p>Tracks mass bans, channel deletions, role wipes, and webhook abuse — auto-bans the executor and locks the server within seconds.</p>
+        </div>
+      </div>
+
+      <!-- Automod showcase -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0d2b54);">
+          <div class="code-preview">// 🤖 AUTOMOD ENGINE
+// Spam → 10min timeout
+if (filtered.length >= spamLimit)
+  member.timeout(10 * 60 * 1000);
+
+// Mass mention → 15min timeout
+if (mentionCount > MASS_MENTION_LIMIT)
+  member.timeout(15 * 60 * 1000);
+
+// Banned word → 30min + DM warning
+if (bannedWords.includes(normalized))
+  member.timeout(30 * 60 * 1000);
+
+// Also detects:
+// ✦ Discord invite links
+// ✦ Zalgo / unicode abuse
+// ✦ Repeated character spam
+// ✦ Excessive caps (70%+ threshold)
+// ✦ Emoji spam (&gt;10 emojis)</div>
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Security · Automod</span>
+          <h3>Full Automod Engine</h3>
+          <p>7-layer message filtering covering spam, invite links, mass mentions, banned words, zalgo text, caps abuse, and emoji flooding — all with logging.</p>
+        </div>
+      </div>
+
+      <!-- Ticket System code -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0a1f3d);">
+          <div class="code-preview">// 🎫 TICKET SYSTEM v2
 const channel = await guild.channels.create({
   name: `🔴-general-${cleanName}`,
   type: ChannelType.GuildText,
   parent: TICKET_CATEGORY,
-  permissionOverwrites: [...]
+  permissionOverwrites: [
+    { id: guild.id,
+      deny: [ViewChannel] },
+    { id: user.id,
+      allow: [ViewChannel, SendMessages] },
+    { id: TICKET_SUPPORT_ROLE,
+      allow: [ViewChannel, SendMessages] }
+  ]
 });</div>
         </div>
         <div class="gallery-info">
           <span class="gallery-tag">Discord Bot</span>
           <h3>Advanced Ticket System</h3>
-          <p>Full support dashboard with transcripts, claim/close flow, and categorised ticket types.</p>
+          <p>Select-menu ticket creation with permission-locked channels, claim/close flow, full transcript logging, and three support categories.</p>
         </div>
       </div>
 
+      <!-- XP Level System -->
       <div class="gallery-card">
         <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0d2b54);">
-          <div class="code-preview">-- Roblox DataStore Module
-local DataStore = game:GetService(
-  "DataStoreService")
-local PlayerStore = DataStore
-  :GetDataStore("PlayerData_v3")
+          <div class="code-preview">// ⭐ XP & LEVEL SYSTEM
+user.xp += Math.floor(Math.random()*10)+5;
+const requiredXP = user.level * 100;
 
-PlayerStore:SetAsync(userId, {
-  coins = 0, level = 1, xp = 0
-})</div>
+if (user.xp >= requiredXP) {
+  user.xp -= requiredXP;
+  user.level += 1;
+  channel.send(
+    `🎉 ${author} leveled up to Lv ${user.level}!`
+  );
+}
+// Leaderboard: /leaderboard
+// Check level: /mylevel
+// Max level cap: 100</div>
+        </div>
+        <div class="gallery-info">
+          <span class="gallery-tag">Discord Bot</span>
+          <h3>XP & Leveling System</h3>
+          <p>Persistent XP system with random gain per message, level-up announcements, leaderboard command, and a configurable max-level cap.</p>
+        </div>
+      </div>
+
+      <!-- Lua / Roblox -->
+      <div class="gallery-card">
+        <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0a1f3d);">
+          <div class="code-preview">-- 🎮 ROBLOX DATASTORE MODULE
+local DS = game:GetService("DataStoreService")
+local Store = DS:GetDataStore("PlayerData_v3")
+
+game.Players.PlayerAdded:Connect(function(plr)
+  local data = Store:GetAsync(plr.UserId) or {
+    coins = 0, level = 1, xp = 0
+  }
+  -- Apply to player leaderstats
+  setupLeaderstats(plr, data)
+end)
+
+-- Auto-save on leave
+game.Players.PlayerRemoving:Connect(
+  function(plr) Store:SetAsync(...) end)</div>
         </div>
         <div class="gallery-info">
           <span class="gallery-tag">Lua / Roblox</span>
           <h3>DataStore Player System</h3>
-          <p>Persistent player data with auto-save, version control, and error handling built in.</p>
+          <p>Persistent player data with auto-save on leave, version control, and error-safe async handling for Roblox games.</p>
         </div>
       </div>
 
-      <div class="gallery-card">
-        <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0a1f3d);">
-          <div class="code-preview">// Anti-Nuke Tracker
-function trackNukeAction(guild, userId, reason) {
-  const data = antiNukeTracker.get(userId);
-  data.count++;
-  if (data.count >= NUKER_THRESHOLD)
-    punishNuker(guild, userId, reason);
-}</div>
-        </div>
-        <div class="gallery-info">
-          <span class="gallery-tag">Discord Bot</span>
-          <h3>Anti-Nuke System</h3>
-          <p>Monitors mass bans, role deletions, channel wipes and auto-bans malicious actors in real time.</p>
-        </div>
-      </div>
-
-      <div class="gallery-card">
-        <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0d2b54);">
-          <div class="code-preview">// XP Level System
-user.xp += Math.floor(Math.random() * 10) + 5;
-const requiredXP = user.level * 100;
-if (user.xp >= requiredXP) {
-  user.xp -= requiredXP;
-  user.level += 1;
-  channel.send(`🎉 Leveled up!`);
-}</div>
-        </div>
-        <div class="gallery-info">
-          <span class="gallery-tag">Discord Bot</span>
-          <h3>XP & Level System</h3>
-          <p>Persistent leveling with leaderboard support, JSON database, and configurable XP rates.</p>
-        </div>
-      </div>
-
-      <div class="gallery-card">
-        <div class="gallery-preview" style="background:linear-gradient(135deg,#020c1b,#0a1f3d);">
-          <div class="code-preview">-- Roblox UI Controller
-local TweenService = game:GetService("TweenService")
-local gui = player.PlayerGui:WaitForChild("MainGui")
-TweenService:Create(gui.Frame, TweenInfo.new(0.4),
-  {Position = UDim2.new(0.5,0,0.5,0)}):Play()</div>
-        </div>
-        <div class="gallery-info">
-          <span class="gallery-tag">Lua / Roblox</span>
-          <h3>Custom UI System</h3>
-          <p>Smooth tween-based UI with responsive layouts and client-server communication.</p>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -1130,102 +1294,118 @@ function spawnSparks(x, y) {
   }
 }
 
-// ===== HEX CANVAS BACKGROUND =====
+// ===== BUTTON RIPPLE =====
+function addRipple(e) {
+  const btn = e.currentTarget;
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const ripple = document.createElement('span');
+  ripple.className = 'btn-ripple';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+  ripple.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+  btn.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 520);
+}
+
+// ===== WAVE LINE BACKGROUND =====
 const canvas = document.getElementById('hexCanvas');
 const ctx = canvas.getContext('2d');
+let W, H;
 
-let W, H, hexes = [];
-
-const HEX_COLORS = [
-  [2,   8,  20],
-  [5,  18,  45],
-  [10, 35,  75],
-  [16, 58, 110],
-  [24, 88, 150],
-  [40,130, 195],
-];
-
-function hexPath(cx, cy, r) {
-  ctx.beginPath();
-  for (let i = 0; i < 6; i++) {
-    const a = Math.PI / 180 * (60 * i - 30);
-    const x = cx + r * Math.cos(a);
-    const y = cy + r * Math.sin(a);
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-  }
-  ctx.closePath();
-}
-
-function initHexes() {
+function initCanvas() {
   W = canvas.width  = window.innerWidth;
   H = canvas.height = window.innerHeight;
-  hexes = [];
-
-  // Much smaller hexes — R=14 instead of 38
-  const R = 14;
-  const w = R * 2;
-  const h = Math.sqrt(3) * R;
-  const cols = Math.ceil(W / (w * 0.75)) + 3;
-  const rows = Math.ceil(H / h) + 3;
-
-  for (let row = -1; row < rows; row++) {
-    for (let col = -1; col < cols; col++) {
-      const offset = col % 2 === 0 ? 0 : h / 2;
-      hexes.push({
-        cx: col * w * 0.75,
-        cy: row * h + offset,
-        r: R - 1,
-      });
-    }
-  }
 }
+
+// Colour palette for the wave bands — dark blues with hints of teal/cyan
+const WAVE_COLORS = [
+  [2,   10,  28],   // near-black navy
+  [8,   28,  65],   // deep blue
+  [14,  55, 105],   // mid blue
+  [22,  90, 150],   // bright blue
+  [35, 140, 200],   // sky blue
+  [55, 185, 230],   // light cyan-blue
+];
 
 function lerp(a, b, t) { return a + (b - a) * t; }
 
-function drawHexes(time) {
+function getWaveColor(t) {
+  // t in [0,1] — map across palette
+  const idx = t * (WAVE_COLORS.length - 1);
+  const lo  = Math.floor(idx);
+  const hi  = Math.min(lo + 1, WAVE_COLORS.length - 1);
+  const f   = idx - lo;
+  return [
+    Math.round(lerp(WAVE_COLORS[lo][0], WAVE_COLORS[hi][0], f)),
+    Math.round(lerp(WAVE_COLORS[lo][1], WAVE_COLORS[hi][1], f)),
+    Math.round(lerp(WAVE_COLORS[lo][2], WAVE_COLORS[hi][2], f)),
+  ];
+}
+
+function drawWave(ts) {
   ctx.clearRect(0, 0, W, H);
 
-  // All hexes share the same wave formula — no per-hex randomness.
-  // Two diagonal waves at different angles combine to make a flowing ripple
-  // that travels uniformly across the whole grid together.
-  const t = time * 0.001;
+  // Dark base fill
+  ctx.fillStyle = '#020a1c';
+  ctx.fillRect(0, 0, W, H);
 
-  for (const hex of hexes) {
-    // Wave 1: sweeps diagonally top-left → bottom-right
-    const w1 = Math.sin(t * 0.42 + hex.cx * 0.016 + hex.cy * 0.011);
-    // Wave 2: sweeps diagonally top-right → bottom-left (opposite X)
-    const w2 = Math.sin(t * 0.27 - hex.cx * 0.010 + hex.cy * 0.018 + 1.8);
-    // Normalise blend to [0,1]
-    const combined = ((w1 * 0.65 + w2 * 0.35) + 1) / 2;
+  const t = ts * 0.001;
 
-    const idx = combined * (HEX_COLORS.length - 1);
-    const lo  = Math.floor(idx);
-    const hi  = Math.min(lo + 1, HEX_COLORS.length - 1);
-    const f   = idx - lo;
-    const r   = Math.round(lerp(HEX_COLORS[lo][0], HEX_COLORS[hi][0], f));
-    const g   = Math.round(lerp(HEX_COLORS[lo][1], HEX_COLORS[hi][1], f));
-    const b   = Math.round(lerp(HEX_COLORS[lo][2], HEX_COLORS[hi][2], f));
+  // Draw multiple wave "ribbons" stacked vertically
+  // Each ribbon is a filled band between two sine curves
+  const RIBBON_COUNT = 18;
 
-    hexPath(hex.cx, hex.cy, hex.r);
-    ctx.fillStyle = `rgb(${r},${g},${b})`;
-    ctx.fill();
+  for (let i = 0; i < RIBBON_COUNT; i++) {
+    const progress = i / (RIBBON_COUNT - 1); // 0 → 1 top to bottom
 
-    hexPath(hex.cx, hex.cy, hex.r);
-    ctx.strokeStyle = `rgba(0,180,255,${0.025 + combined * 0.07})`;
-    ctx.lineWidth = 0.5;
+    // Each ribbon's vertical center — spread across full height
+    const centerY = H * 0.05 + H * 0.9 * progress;
+
+    // Wave parameters vary per ribbon for organic feel
+    const amp      = 28 + Math.sin(i * 0.7) * 18;      // amplitude
+    const freq     = 0.004 + i * 0.00015;               // spatial freq
+    const speed    = 0.38 + i * 0.03;                   // wave speed
+    const offset   = i * 1.1;                           // phase offset
+    const thickness = 3 + Math.sin(i * 0.5) * 2;       // ribbon thickness
+
+    // Colour: lighter ribbons toward center of screen
+    const colorT = 1 - Math.abs(progress - 0.5) * 1.6;
+    const clampedT = Math.max(0, Math.min(1, colorT));
+    const [r, g, b] = getWaveColor(clampedT);
+
+    // Opacity: brighter in the middle bands
+    const opacity = 0.25 + clampedT * 0.55;
+
+    // Build wave path
+    ctx.beginPath();
+    for (let x = 0; x <= W; x += 2) {
+      // Two overlapping sine waves for organic shape
+      const y = centerY
+        + Math.sin(x * freq + t * speed + offset) * amp
+        + Math.sin(x * freq * 1.7 + t * speed * 0.6 + offset + 1.4) * (amp * 0.3);
+      x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+
+    ctx.strokeStyle = `rgba(${r},${g},${b},${opacity})`;
+    ctx.lineWidth   = thickness;
+    ctx.shadowColor = `rgba(${r},${g},${b},${opacity * 0.6})`;
+    ctx.shadowBlur  = 8 + clampedT * 12;
     ctx.stroke();
+    ctx.shadowBlur = 0;
   }
 }
 
-let animTime = 0;
+let hexes = []; // keep for compatibility — unused now
+function initHexes() { initCanvas(); }
+
 function animate(ts) {
-  animTime = ts;
-  drawHexes(ts);
+  drawWave(ts);
   requestAnimationFrame(animate);
 }
 
-window.addEventListener('resize', initHexes);
-initHexes();
+window.addEventListener('resize', initCanvas);
+initCanvas();
 requestAnimationFrame(animate);
 </script>
 </body>
