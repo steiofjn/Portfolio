@@ -20,7 +20,7 @@
     --white: #ffffff;
   }
 
-  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; cursor: none !important; }
 
   html { scroll-behavior: smooth; }
 
@@ -763,7 +763,9 @@
     line-height: 1.6;
   }
 
-  /* ===== DIVIDER ===== */
+  a, button, [onclick], select, input, label, .nav-links a, .cta-btn, .lb-close, .gallery-card, .price-card, .offer-card, .approach-item, .tech-pill {
+    cursor: none !important;
+  }
   .section-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(0,212,255,0.2), transparent);
@@ -781,6 +783,104 @@
     color: rgba(214,240,255,0.35);
     letter-spacing: 1px;
   }
+  /* ===== LIGHTBOX ===== */
+  .lb-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99990;
+    background: rgba(1, 7, 18, 0.92);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .lb-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .lb-img-wrap {
+    position: relative;
+    max-width: 90vw;
+    max-height: 88vh;
+    transform: scale(0.88) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  }
+  .lb-overlay.open .lb-img-wrap {
+    transform: scale(1) translateY(0);
+  }
+  .lb-img-wrap img {
+    display: block;
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 12px;
+    border: 1px solid rgba(0,212,255,0.3);
+    box-shadow: 0 0 80px rgba(0,120,255,0.3), 0 40px 100px rgba(0,0,0,0.7);
+  }
+  .lb-close {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    width: 36px; height: 36px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 16px rgba(0,212,255,0.5);
+  }
+  .lb-close:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 28px rgba(0,212,255,0.8);
+  }
+
+  /* Click-zoom hint on image cards */
+  .gallery-card.has-image .gallery-preview {
+    cursor: none;
+  }
+  .gallery-card.has-image .gallery-preview::before {
+    content: '🔍 Click to expand';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,20,50,0.55);
+    color: var(--accent);
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 2;
+    border-radius: 0;
+  }
+  .gallery-card.has-image:hover .gallery-preview::before {
+    opacity: 1;
+  }
+
+  /* Card click ripple */
+  .gallery-card-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0,212,255,0.25);
+    transform: scale(0);
+    animation: cardRipple 0.5s ease-out forwards;
+    pointer-events: none;
+    z-index: 3;
+  }
+  @keyframes cardRipple {
+    to { transform: scale(6); opacity: 0; }
+  }
+
   footer span { color: var(--accent); }
 </style>
 </head>
@@ -791,6 +891,14 @@
 
 <!-- CURSOR -->
 <div id="cursor"></div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lb-overlay" onclick="closeLightbox(event)">
+  <div class="lb-img-wrap">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <img id="lb-img" src="" alt="Full view">
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -1003,8 +1111,8 @@
     <div class="gallery-grid">
 
       <!-- Screenshot: Designer Application flow -->
-      <div class="gallery-card">
-        <div class="gallery-preview" style="background:#111;padding:0;">
+      <div class="gallery-card has-image">
+        <div class="gallery-preview" onclick="openLightbox(this)" style="background:#111;padding:0;">
           <img src="Screen Shot 2026-04-03 at 4.15.08 PM.png" alt="Designer Application" style="width:100%;height:100%;object-fit:cover;object-position:top;">
         </div>
         <div class="gallery-info">
@@ -1016,7 +1124,7 @@
 
       <!-- Screenshot: Questions embed -->
       <div class="gallery-card">
-        <div class="gallery-preview" style="background:#111;padding:0;">
+        <div class="gallery-preview" onclick="openLightbox(this)" style="background:#111;padding:0;">
           <img src="Screen Shot 2026-04-03 at 4.16.22 PM.png" alt="Application Questions" style="width:100%;height:100%;object-fit:cover;object-position:top;">
         </div>
         <div class="gallery-info">
@@ -1028,7 +1136,7 @@
 
       <!-- Screenshot: Almost there + image prompt -->
       <div class="gallery-card">
-        <div class="gallery-preview" style="background:#111;padding:0;">
+        <div class="gallery-preview" onclick="openLightbox(this)" style="background:#111;padding:0;">
           <img src="Screen Shot 2026-04-03 at 4.16.29 PM.png" alt="Portfolio submission" style="width:100%;height:100%;object-fit:cover;object-position:center;">
         </div>
         <div class="gallery-info">
@@ -1040,7 +1148,7 @@
 
       <!-- Screenshot: Staff review panel -->
       <div class="gallery-card">
-        <div class="gallery-preview" style="background:#111;padding:0;">
+        <div class="gallery-preview" onclick="openLightbox(this)" style="background:#111;padding:0;">
           <img src="Screen Shot 2026-04-03 at 4.17.15 PM.png" alt="Staff Review Panel" style="width:100%;height:100%;object-fit:cover;object-position:top;">
         </div>
         <div class="gallery-info">
@@ -1052,7 +1160,7 @@
 
       <!-- Screenshot: Approval DM -->
       <div class="gallery-card">
-        <div class="gallery-preview" style="background:#111;padding:0;">
+        <div class="gallery-preview" onclick="openLightbox(this)" style="background:#111;padding:0;">
           <img src="Screen Shot 2026-04-03 at 4.17.30 PM.png" alt="Approval Message" style="width:100%;height:100%;object-fit:cover;object-position:center;">
         </div>
         <div class="gallery-info">
@@ -1064,7 +1172,7 @@
 
       <!-- Screenshot: Support ticket panel -->
       <div class="gallery-card">
-        <div class="gallery-preview" style="background:#111;padding:0;">
+        <div class="gallery-preview" onclick="openLightbox(this)" style="background:#111;padding:0;">
           <img src="Screen Shot 2026-04-03 at 8.54.29 PM.png" alt="Support Panel" style="width:100%;height:100%;object-fit:cover;object-position:top;">
         </div>
         <div class="gallery-info">
@@ -1411,6 +1519,47 @@ function animate(ts) {
 window.addEventListener('resize', initCanvas);
 initCanvas();
 requestAnimationFrame(animate);
+
+// ===== LIGHTBOX =====
+const lightbox   = document.getElementById('lightbox');
+const lbImg      = document.getElementById('lb-img');
+const lbImgWrap  = lightbox.querySelector('.lb-img-wrap');
+
+function openLightbox(previewEl) {
+  const img = previewEl.querySelector('img');
+  if (!img) return;
+
+  // Card ripple animation
+  const card = previewEl.closest('.gallery-card');
+  const rect = previewEl.getBoundingClientRect();
+  const ripple = document.createElement('span');
+  ripple.className = 'gallery-card-ripple';
+  const size = Math.max(rect.width, rect.height);
+  ripple.style.width  = ripple.style.height = size + 'px';
+  ripple.style.left   = (rect.width  / 2 - size / 2) + 'px';
+  ripple.style.top    = (rect.height / 2 - size / 2) + 'px';
+  previewEl.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 520);
+
+  // Open lightbox
+  lbImg.src = img.src;
+  lightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+  // Close if clicking the overlay background (not the image itself)
+  if (e && e.target === lbImgWrap) return;
+  if (e && lbImgWrap.contains(e.target) && e.target !== lightbox) return;
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => { lbImg.src = ''; }, 320);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
 </script>
 </body>
 </html>
