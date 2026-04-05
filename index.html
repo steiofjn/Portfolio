@@ -1170,7 +1170,6 @@
   /* ===== REVIEWS CAROUSEL ===== */
   .reviews-section {
     padding: 60px 0 50px;
-    overflow: hidden;
     position: relative;
   }
   .reviews-section::before,
@@ -1178,19 +1177,12 @@
     content: '';
     position: absolute;
     top: 0; bottom: 0;
-    width: 120px;
+    width: 100px;
     z-index: 2;
     pointer-events: none;
   }
-  .reviews-section::before {
-    left: 0;
-    background: linear-gradient(90deg, var(--dark1), transparent);
-  }
-  .reviews-section::after {
-    right: 0;
-    background: linear-gradient(270deg, var(--dark1), transparent);
-  }
-
+  .reviews-section::before { left:0; background: linear-gradient(90deg, var(--dark1), transparent); }
+  .reviews-section::after  { right:0; background: linear-gradient(270deg, var(--dark1), transparent); }
   .reviews-label {
     text-align: center;
     font-family: 'Orbitron', monospace;
@@ -1201,99 +1193,71 @@
     margin-bottom: 32px;
     opacity: 0.8;
   }
-
   .reviews-track-wrap {
-    overflow: hidden;
     width: 100%;
+    overflow: hidden;
   }
-
-  .reviews-track {
+  #reviewsTrack {
     display: flex;
+    flex-wrap: nowrap;
     gap: 24px;
     width: max-content;
-    animation: reviewsScroll 40s linear infinite;
   }
-  .reviews-track { pointer-events: none; }
-
-  @keyframes reviewsScroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
   .review-card {
     background: rgba(10,31,61,0.75);
     border: 1px solid rgba(0,212,255,0.13);
     border-radius: 14px;
     padding: 28px 28px 24px;
     width: 320px;
+    min-width: 320px;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    transition: border-color 0.3s ease;
-    position: relative;
-    overflow: hidden;
   }
-  .review-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.5;
+  .review-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(0,212,255,0.08);
+    margin-top: 4px;
   }
-  .review-card:hover {
-    border-color: rgba(0,212,255,0.35);
+  .review-user-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(0,212,255,0.1);
+    border: 1px solid rgba(0,212,255,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
   }
-
+  .review-user-icon svg { width:14px; height:14px; }
+  .review-username {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(214,240,255,0.6);
+  }
+  .review-username span {
+    color: rgba(214,240,255,0.35);
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
   .review-stars {
     color: #ffc840;
     font-size: 1rem;
     letter-spacing: 2px;
     text-shadow: 0 0 8px rgba(255,200,64,0.5);
   }
-
   .review-text {
     font-size: 0.9rem;
     line-height: 1.7;
     color: rgba(214,240,255,0.82);
     font-style: italic;
   }
-
-  .review-author {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-top: auto;
-    padding-top: 14px;
-    border-top: 1px solid rgba(0,212,255,0.08);
-  }
-
-  .review-avatar {
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Orbitron', monospace;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: #000;
-    flex-shrink: 0;
-  }
-
-  .review-name {
-    font-family: 'Orbitron', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--light3);
-    letter-spacing: 1px;
-  }
-  .review-tag {
-    font-size: 0.7rem;
-    color: var(--muted);
-    margin-top: 2px;
-  }
+  @keyframes reviewsScroll { }
 
   footer span { color: var(--accent); }
 </style>
@@ -1353,94 +1317,14 @@
   <div class="reviews-section">
     <div class="reviews-label">★ What Clients Say ★</div>
     <div class="reviews-track-wrap">
-      <div class="reviews-track" id="reviewsTrack">
-
-        <!-- Card 1 -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"Absolutely incredible work. The bot was delivered faster than expected and everything worked perfectly out of the box. The anti-raid system alone saved our server twice in the first week."</div>
-        </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"Bought the Advanced Package and it was worth every Robux. The code is super clean, easy to configure, and DiscoDev answered every question I had within minutes. 10/10."</div>
-        </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"The ticket system is exactly what we needed. Staff love it, members find it easy to use, and the transcripts feature is a game changer for keeping records. Highly recommend."</div>
-        </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"Got the Premium Package for a full server setup. DiscoDev built everything from scratch — channels, roles, the bot, all of it. Looked and worked professionally. Worth every penny."</div>
-        </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"I've used other bot devs before and none of them come close. The level system and invite tracker work flawlessly and the code is actually readable — not some messy copy-paste job."</div>
-        </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"Fast, reliable, and actually communicates throughout the whole process. Had a minor bug after launch and it was fixed within the hour. This is what proper service looks like."</div>
-        </div>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"The automod system is incredible. Spam, raid detection, invite links, banned words — it catches everything automatically. Our moderation team barely has to step in anymore."</div>
-        </div>
-        </div>
-
-        <!-- Duplicate set for seamless infinite loop -->
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"Absolutely incredible work. The bot was delivered faster than expected and everything worked perfectly out of the box. The anti-raid system alone saved our server twice in the first week."</div>
-        </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"Bought the Advanced Package and it was worth every Robux. The code is super clean, easy to configure, and DiscoDev answered every question I had within minutes. 10/10."</div>
-        </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"The ticket system is exactly what we needed. Staff love it, members find it easy to use, and the transcripts feature is a game changer for keeping records. Highly recommend."</div>
-        </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"Got the Premium Package for a full server setup. DiscoDev built everything from scratch — channels, roles, the bot, all of it. Looked and worked professionally. Worth every penny."</div>
-        </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"I've used other bot devs before and none of them come close. The level system and invite tracker work flawlessly and the code is actually readable — not some messy copy-paste job."</div>
-        </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"Fast, reliable, and actually communicates throughout the whole process. Had a minor bug after launch and it was fixed within the hour. This is what proper service looks like."</div>
-        </div>
-        </div>
-        <div class="review-card">
-          <div class="review-stars">★★★★★</div>
-          <div class="review-text">"The automod system is incredible. Spam, raid detection, invite links, banned words — it catches everything automatically. Our moderation team barely has to step in anymore."</div>
-        </div>
-        </div>
-
+      <div id="reviewsTrack">
+        <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Absolutely incredible work. The bot was delivered faster than expected and everything worked perfectly out of the box. The anti-raid system alone saved our server twice in the first week."</div><div class="review-user"><div class="review-user-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.7)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="review-username">jake.m <span>Today at 3:42 PM</span></div></div></div>
+        <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Bought the Advanced Package and it was worth every Robux. The code is super clean, easy to configure, and DiscoDev answered every question I had within minutes. 10/10."</div><div class="review-user"><div class="review-user-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.7)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="review-username">liam_dev <span>Yesterday at 7:15 PM</span></div></div></div>
+        <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"The ticket system is exactly what we needed. Staff love it, members find it easy to use, and the transcripts feature is a game changer for keeping records. Highly recommend."</div><div class="review-user"><div class="review-user-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.7)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="review-username">callum99 <span>Mar 31 at 11:08 AM</span></div></div></div>
+        <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Got the Premium Package for a full server setup. DiscoDev built everything from scratch — channels, roles, the bot, all of it. Looked and worked professionally. Worth every penny."</div><div class="review-user"><div class="review-user-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.7)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="review-username">not.ethan <span>Mar 29 at 6:50 PM</span></div></div></div>
+        <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"I've used other bot devs before and none of them come close. The level system and invite tracker work flawlessly and the code is actually readable — not some messy copy-paste job."</div><div class="review-user"><div class="review-user-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.7)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="review-username">ryanxo <span>Mar 27 at 2:30 PM</span></div></div></div>
+        <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"Fast, reliable, and actually communicates throughout the whole process. Had a minor bug after launch and it was fixed within the hour. This is what proper service looks like."</div><div class="review-user"><div class="review-user-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.7)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="review-username">tomthebuilder <span>Mar 25 at 9:14 AM</span></div></div></div>
+        <div class="review-card"><div class="review-stars">★★★★★</div><div class="review-text">"The automod system is incredible. Spam, raid detection, invite links, banned words — it catches everything automatically. Our moderation team barely has to step in anymore."</div><div class="review-user"><div class="review-user-icon"><svg viewBox="0 0 24 24" fill="none" stroke="rgba(0,212,255,0.7)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="review-username">jess.codes <span>Mar 22 at 5:37 PM</span></div></div></div>
       </div>
     </div>
   </div>
@@ -2153,6 +2037,29 @@ function animate(ts) {
 window.addEventListener('resize', initCanvas);
 initCanvas();
 requestAnimationFrame(animate);
+
+// ===== REVIEWS CAROUSEL =====
+(function() {
+  const track = document.getElementById('reviewsTrack');
+  if (!track) return;
+
+  // Clone all cards and append so we have a seamless loop
+  const cards = Array.from(track.children);
+  cards.forEach(c => track.appendChild(c.cloneNode(true)));
+
+  let pos = 0;
+  const speed = 0.8;
+
+  function tick() {
+    pos += speed;
+    // When we've scrolled past the first half (original cards), reset silently
+    const half = track.scrollWidth / 2;
+    if (pos >= half) pos -= half;
+    track.style.transform = 'translateX(-' + pos + 'px)';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
 
 // ===== LIGHTBOX =====
 const lightbox   = document.getElementById('lightbox');
